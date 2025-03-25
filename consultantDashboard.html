@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriConnect - Consultant Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        :root {
+            --dark-green: #2E7D32;
+            --light-green: #4CAF50;
+            --forest-green: #1B5E20;
+            --white: #FFFFFF;
+            --light-bg: #E8F5E9;
+            --gold: #FFD700;
+        }
+
+        .navbar {
+            background-color: var(--dark-green);
+            padding: 1rem;
+            color: var(--white);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            background-color: var(--light-green);
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            color: var(--white);
+            cursor: pointer;
+        }
+
+        .dashboard {
+            display: flex;
+            min-height: calc(100vh - 60px);
+            background-color: var(--light-bg);
+        }
+
+        .sidebar {
+            width: 300px;
+            background-color: var(--white);
+            padding: 2rem;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+
+        .consultant-profile {
+            text-align: center;
+        }
+
+        .consultant-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+
+        .consultant-profile h3 {
+            color: var(--forest-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .stars {
+            color: var(--gold);
+            margin: 0.5rem 0;
+        }
+
+        .profile-section {
+            margin: 1.5rem 0;
+        }
+
+        .profile-section h4 {
+            color: var(--dark-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-section p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--white);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .tab-btn.active {
+            background-color: var(--light-green);
+            color: var(--white);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .lab-card {
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .lab-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .lab-card h4 {
+            color: var(--dark-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .map-link {
+            color: var(--light-green);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        .map-link:hover {
+            text-decoration: underline;
+        }
+
+        .farmer-card {
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .farmer-card h4 {
+            color: var(--dark-green);
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 1rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">AgriConnect - Consultant Dashboard</div>
+            <a href="./farmerDashboard.html"><button class="logout-btn">Logout</button>
+            </a>
+        </div>
+    </nav>
+
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="consultant-profile">
+                <img src="https://via.placeholder.com/100" alt="Consultant" class="consultant-image">
+                <h3>Sarah Green</h3>
+                <div class="stars">★★★★★ (5/5)</div>
+            </div>
+            <div class="profile-section">
+                <h4>Qualifications</h4>
+                <p>Ph.D. in Soil Science, Certified Agronomist</p>
+            </div>
+            <div class="profile-section">
+                <h4>Works</h4>
+                <p>Soil Fertility Management, Organic Farming Techniques, Crop Yield Optimization</p>
+            </div>
+            <div class="profile-section">
+                <h4>Comments</h4>
+                <p>"Helped increase my yield by 30%!" - John F.</p>
+                <p>"Expert advice on organic methods." - Mary S.</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="labs">Labs Near Me</button>
+                <button class="tab-btn" data-tab="farmers">Farmers</button>
+            </div>
+
+            <div class="tab-content active" id="labs">
+                <div class="card-grid">
+                    <div class="lab-card">
+                        <h4>GreenSoil Labs</h4>
+                        <p>Distance: 5 miles</p>
+                        <p>Services: Soil Testing, Water Analysis</p>
+                        <p>Contact: (555) 123-4567</p>
+                        <a href="https://maps.google.com/?q=GreenSoil+Labs" target="_blank" class="map-link">View on Google Maps</a>
+                    </div>
+                    <div class="lab-card">
+                        <h4>AgriTech Testing</h4>
+                        <p>Distance: 8 miles</p>
+                        <p>Services: Crop Analysis, Nutrient Testing</p>
+                        <p>Contact: (555) 234-5678</p>
+                        <a href="https://maps.google.com/?q=AgriTech+Testing" target="_blank" class="map-link">View on Google Maps</a>
+                    </div>
+                    <div class="lab-card">
+                        <h4>FarmLab Solutions</h4>
+                        <p>Distance: 12 miles</p>
+                        <p>Services: Pest Analysis, Soil PH Testing</p>
+                        <p>Contact: (555) 345-6789</p>
+                        <a href="https://maps.google.com/?q=FarmLab+Solutions" target="_blank" class="map-link">View on Google Maps</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="farmers">
+                <div class="card-grid">
+                    <div class="farmer-card">
+                        <h4>John Doe</h4>
+                        <p>Land Size: 15 acres</p>
+                        <p>Current Crops: Wheat, Corn</p>
+                        <p>Soil Type: Loamy</p>
+                        <p>Irrigation: Drip System</p>
+                        <p>Location: 10 miles away</p>
+                    </div>
+                    <div class="farmer-card">
+                        <h4>Mary Smith</h4>
+                        <p>Land Size: 8 acres</p>
+                        <p>Current Crops: Rice, Soybean</p>
+                        <p>Soil Type: Clay</p>
+                        <p>Irrigation: Flood Irrigation</p>
+                        <p>Location: 6 miles away</p>
+                    </div>
+                    <div class="farmer-card">
+                        <h4>Peter Brown</h4>
+                        <p>Land Size: 25 acres</p>
+                        <p>Current Crops: Cotton, Sorghum</p>
+                        <p>Soil Type: Sandy Loam</p>
+                        <p>Irrigation: Sprinkler System</p>
+                        <p>Location: 15 miles away</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Tab functionality
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                button.classList.add('active');
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

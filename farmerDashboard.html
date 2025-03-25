@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriConnect - Farmer Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        :root {
+            --dark-green: #2E7D32;
+            --light-green: #4CAF50;
+            --forest-green: #1B5E20;
+            --white: #FFFFFF;
+            --light-bg: #E8F5E9;
+            --gold: #FFD700;
+        }
+
+        .navbar {
+            background-color: var(--dark-green);
+            padding: 1rem;
+            color: var(--white);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            background-color: var(--light-green);
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            color: var(--white);
+            cursor: pointer;
+        }
+
+        .dashboard {
+            display: flex;
+            min-height: calc(100vh - 60px);
+            background-color: var(--light-bg);
+        }
+
+        .sidebar {
+            width: 300px;
+            background-color: var(--white);
+            padding: 2rem;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+
+        .filter-section {
+            margin-bottom: 2rem;
+        }
+
+        .filter-section h3 {
+            color: var(--forest-green);
+            margin-bottom: 1rem;
+        }
+
+        .crop-list, .area-list {
+            list-style: none;
+        }
+
+        .crop-list li, .area-list li {
+            margin: 0.5rem 0;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #666;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            background-color: var(--white);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .tab-btn.active {
+            background-color: var(--light-green);
+            color: var(--white);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* Lab Cards */
+        .lab-card {
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .lab-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .lab-card h4 {
+            color: var(--dark-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .map-link {
+            color: var(--light-green);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+
+        .map-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Consultant Cards */
+        .consultant-card {
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .consultant-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .consultant-info h4 {
+            color: var(--dark-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .stars {
+            color: var(--gold);
+            margin: 0.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                padding: 1rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .consultant-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">AgriConnect - Farmer Dashboard</div>
+           <a href="index.html"> <button class="logout-btn">Logout</button>
+           </a>
+        </div>
+    </nav>
+
+    <div class="dashboard">
+        <aside class="sidebar">
+            <div class="filter-section">
+                <h3>Crop Filters</h3>
+                <ul class="crop-list">
+                    <li><label class="checkbox-label"><input type="checkbox"> Wheat</label></li>
+                    <li><label class="checkbox-label"><input type="checkbox"> Rice</label></li>
+                    <li><label class="checkbox-label"><input type="checkbox"> Corn</label></li>
+                    <li><label class="checkbox-label"><input type="checkbox"> Soybean</label></li>
+                </ul>
+            </div>
+            <div class="filter-section">
+                <h3>Land Area Filters</h3>
+                <ul class="area-list">
+                    <li><label class="checkbox-label"><input type="checkbox"> < 5 acres</label></li>
+                    <li><label class="checkbox-label"><input type="checkbox"> 5-10 acres</label></li>
+                    <li><label class="checkbox-label"><input type="checkbox"> 10-20 acres</label></li>
+                    <li><label class="checkbox-label"><input type="checkbox"> > 20 acres</label></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="labs">Labs Near Me</button>
+                <button class="tab-btn" data-tab="consultants">Consultants Near Me</button>
+            </div>
+
+            <div class="tab-content active" id="labs">
+                <div class="card-grid">
+                    <div class="lab-card">
+                        <h4>GreenSoil Labs</h4>
+                        <p>Distance: 5 miles</p>
+                        <p>Services: Soil Testing, Water Analysis</p>
+                        <p>Contact: (555) 123-4567</p>
+                        <a href="https://maps.google.com/?q=GreenSoil+Labs" target="_blank" class="map-link">View on Google Maps</a>
+                    </div>
+                    <div class="lab-card">
+                        <h4>AgriTech Testing</h4>
+                        <p>Distance: 8 miles</p>
+                        <p>Services: Crop Analysis, Nutrient Testing</p>
+                        <p>Contact: (555) 234-5678</p>
+                        <a href="https://maps.google.com/?q=AgriTech+Testing" target="_blank" class="map-link">View on Google Maps</a>
+                    </div>
+                    <div class="lab-card">
+                        <h4>FarmLab Solutions</h4>
+                        <p>Distance: 12 miles</p>
+                        <p>Services: Pest Analysis, Soil PH Testing</p>
+                        <p>Contact: (555) 345-6789</p>
+                        <a href="https://maps.google.com/?q=FarmLab+Solutions" target="_blank" class="map-link">View on Google Maps</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="consultants">
+                <div class="card-grid">
+                    <div class="consultant-card">
+                        <img src="https://via.placeholder.com/100" alt="John Farmer" class="consultant-image">
+                        <div class="consultant-info">
+                            <h4>John Farmer</h4>
+                            <p>Qualifications: M.Sc. Agronomy</p>
+                            <div class="stars">★★★★☆ (4/5)</div>
+                            <p>Distance: 3 miles</p>
+                            <p>Expertise: Crop Rotation, Pest Management</p>
+                            <p>Contact: (555) 345-6789</p>
+                        </div>
+                    </div>
+                    <div class="consultant-card">
+                        <img src="https://via.placeholder.com/100" alt="Sarah Green" class="consultant-image">
+                        <div class="consultant-info">
+                            <h4>Sarah Green</h4>
+                            <p>Qualifications: Ph.D. Soil Science</p>
+                            <div class="stars">★★★★★ (5/5)</div>
+                            <p>Distance: 6 miles</p>
+                            <p>Expertise: Soil Fertility, Organic Farming</p>
+                            <p>Contact: (555) 456-7890</p>
+                        </div>
+                    </div>
+                    <div class="consultant-card">
+                        <img src="https://via.placeholder.com/100" alt="Mike Brown" class="consultant-image">
+                        <div class="consultant-info">
+                            <h4>Mike Brown</h4>
+                            <p>Qualifications: B.Sc. Agriculture</p>
+                            <div class="stars">★★★★☆ (4/5)</div>
+                            <p>Distance: 9 miles</p>
+                            <p>Expertise: Irrigation Systems, Crop Yield</p>
+                            <p>Contact: (555) 567-8901</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Tab functionality
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                button.classList.add('active');
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
